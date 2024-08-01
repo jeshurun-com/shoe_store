@@ -1,0 +1,24 @@
+<?php
+require_once 'database.php';
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $url = $_POST['image'];
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+
+    $sql = "INSERT INTO ProductBag (url, name, price) VALUES ('$url', '$name', '$price')";
+
+    if($conn->query($sql) === TRUE){
+        echo "<div class='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative' role='alert' id='success_message'>
+                <strong class='font-bold'>Success!</strong>
+                <span class='block sm:inline'>New record created successfully</span>
+              </div>";
+         //Redirect to another page after successful form submission
+        header("Location: login.php");
+        exit(); // Stop further execution of the script
+    }
+    else {
+        echo "Error: " .$sql . "<br>" . $conn->error;
+    }
+}
+?>
